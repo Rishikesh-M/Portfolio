@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rishikesh M</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0a0a0a;
+      color: white;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+    }
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: white;
+    }
+    .intro {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .intro h1 {
+      font-size: 2.5em;
+    }
+    .highlight {
+      color: #00ff99;
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    .projects, .tools {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+      width: 100%;
+      max-width: 1000px;
+    }
+    .card {
+      background-color: #121212;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      border: 1px solid #00ff99;
+    }
+    .card i {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    h2:hover {
+      animation: logo 2s ease;
+    }
+    @keyframes logo {
+      20% {color: #00ff99;}
+    }
+
+.active-btn {
+  padding: 0.6em 2em;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.active-btn:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing-active-btn 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowing-active-btn {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.active-btn:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+
+  </style>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="logo"><h2>Rishikesh M</h2></div>
+    <nav>
+        <a href="#home">Home</a>
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <section class="intro">
+    <h1><span class="highlight">Penetration Tester</span> | C Programmer<br>
+    <span class="highlight">Cybersecurity Enthusiast</span> | Robotics Intern
+  </h1>
+    <img src="./image.png" width="750px" height="auto-fit" alt="Laptop Illustration">
+    <center><button class="active-btn"><i class="fa fa-download"></i> Resume</button></center>
+  </section>  <section class="content">
+    <h2 style="margin-top: 60px;">Services</h2>
+    <div class="projects">
+      <div class="card">
+        <i class="fas fa-lock"></i>
+        <h3><a href="#" style="text-decoration: none;color: white;">Penetration Testing</a></h3>
+      </div>
+      <div class="card">
+        <i class="fas fa-qrcode"></i>
+        <h3><a href="#" style="text-decoration: none;color: white;">Encryption / Decryption</a></h3>
+      </div>
+    </div><section id="projects"><h2 style="margin-top:60px">Projects</h2>
+<div class="tools">
+  <div class="card">
+    <i class="fas fa-robot"></i>
+    <h3>Cipher Algorithm</h3>
+  <!--  <button class="active-btn" onclick="TravelOver('cipher')"><i class="fa fa-download"></i> Download</button> -->
+  </div>
+  <div class="card">
+    <i class="fas fa-glasses"></i>
+    <h3>Capture The Flag</h3>
+    <button class="active-btn" onclick="TravelOver('ctf')">Visit</button>
+  </div>
+  <div class="card">
+    <i class="fas fa-gamepad"></i>
+    <h3>Automated Network Traffic Monitor</h3>
+  <!-- <button class="active-btn" onclick="TravelOver('antm')"><i class="fa fa-download"></i> Download</button> -->
+  </div>
+</div>
+</section>
+
+  </section>
+
+  <section id="about" style="padding: 60px 20px; background-color: #121212; color: white;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <h2 style="color: #00ff99; text-align: center;">About Me</h2>
+      <p style="line-height: 1.6; font-size: 1.1em; margin-top: 20px;">
+        I am Rishikesh, a Computer Science Engineering student at Kerala Technological University (KTU), with a strong focus on cybersecurity, ethical hacking, and software development. My core interests lie in penetration testing, full-stack development, and building secure, practical applications that address real-world challenges.
+      </p>
+      <p style="line-height: 1.6; font-size: 1.1em;">
+        I have completed certified training in penetration testing at RedTeam Hackers Academy and have gained hands-on experience through internships in both ethical hacking and robotics. My experience spans from exploring system vulnerabilities to developing custom tools and solutions that emphasize performance and security.
+      </p>
+      <p style="line-height: 1.6; font-size: 1.1em;">
+        Some of the projects I’ve worked on include:
+      </p>
+      <ul style="line-height: 1.6; font-size: 1.1em; padding-left: 20px;">
+        <li>A custom-built encryption and decryption tool based on a unique cipher logic</li>
+      </ul>
+      <p style="line-height: 1.6; font-size: 1.1em;">
+        I am driven by a deep curiosity about how systems operate and how they can be secured and optimized. I strongly believe in continuous learning, practical implementation, and building a digital presence that reflects both technical skill and creative thinking.
+      </p>
+      <p style="line-height: 1.6; font-size: 1.1em;">
+        If you are interested in collaborating, discussing ideas, or learning more about my work, please feel free to connect.
+      </p>
+      <h2 id="contact" style="color: #00ff99; text-align: center;">Contact</h2>
+      <div style="margin-top: 30px; display: flex; justify-content: center; gap: 40px; font-size: 1.8em;">
+        <a href="mailto:keshu.4f@gmail.com" style="color: #00ff99;" title="Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+        <a href="https://linkedin.com/in/-rishikesh-m" target="_blank" style="color: #00ff99;" title="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/Rishikesh-m" target="_blank" style="color: #00ff99;" title="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://buymeacoffee.com/rishikesh.m" target="_blank" style="color: #00ff99;" title="Buy Me a Coffee">
+          <i class="fas fa-mug-hot"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+  
+</body>
+<script>
+function TravelOver(par) {
+  if (par == 'cipher') {
+    URL = './encrypt/cipher.tar';
+  }
+  else if (par == 'ctf') {
+    window.location.href = 'https://tryhackme.com/p/keshr';
+  }
+  else if (par == 'antm') {
+    window.location.href = '';
+  }
+}
+
+
+</script>
+</html>
