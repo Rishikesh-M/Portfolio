@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -124,8 +125,42 @@
       top: 0;
       border-radius: 10px;
     }
+
+    .contact-input, .contact-textarea {
+  background-color: #1e1e1e;
+  color: #fff;
+  border: 1px solid #00ff99;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 1em;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.contact-input:focus, .contact-textarea:focus {
+  box-shadow: 0 0 8px #00ff99;
+  border-color: #00ff99;
+}
+
+#formStatus {
+  color: #00ff99;
+  transition: opacity 0.4s;
+}
+
+#about ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+#about ul li::before {
+  content: "🔹";
+  color: #00ff99;
+  margin-right: 8px;
+}
+
   </style>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 </head>
 <body>
   <header>
@@ -180,41 +215,50 @@
     </section>
   </section>
 
-  <section id="about" style="padding: 60px 20px; background-color: #121212; color: white;">
+  <section id="about" style="padding: 80px 20px; background-color: #121212; color: white;">
+    <div style="max-width: 900px; margin: 0 auto;">
+      <h2 style="color: #00ff99; text-align: center; font-size: 2.5em; margin-bottom: 20px;">About Me</h2>
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px;">
+        <img src="./profile.png" alt="Rishikesh M" style="width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 3px solid #00ff99;">
+        <p style="font-size: 1.1em; line-height: 1.8;">
+          I'm <span style="color: #00ff99; font-weight: bold;">Rishikesh</span>, a Computer Science Engineering student at <strong>KTU</strong>, passionate about
+          <span style="color: #00ff99;">Cybersecurity</span>, <span style="color: #00ff99;">Penetration Testing</span>, and <span style="color: #00ff99;">Robotics</span>.
+          I build things that are secure, smart, and solve real problems, whether it’s identifying system vulnerabilities, designing gadgets, or creating tools that improve digital safety.
+        </p>
+        <p style="font-size: 1.1em; line-height: 1.8;">
+          I’ve trained at <strong>RedTeam Hackers Academy</strong> and gained hands-on experience through internships in ethical hacking and robotics.
+          My portfolio includes full-stack web tools, IoT integrations, and even a custom cipher-based encryption tool.
+        </p>
+        <ul style="text-align: left; max-width: 700px; font-size: 1.05em; margin: 0 auto; line-height: 1.6;">
+          <li>✔️ Custom Encryption/Decryption App (unique cipher logic)</li>
+          <li>✔️ Smart Gadget Integration using Raspberry Pi</li>
+          <li>✔️ Capture The Flag (CTF) Competitor on TryHackMe</li>
+        </ul>
+        <p style="font-size: 1.1em; line-height: 1.8;">
+          I'm always exploring new tech, automating systems, and learning how to stay one step ahead in the digital world. 
+          If you want to collaborate or learn more about what I do, let’s connect!
+        </p>
+        <a href="#contact" class="active-btn" style="margin-top: 20px;">Connect with Me</a>
+      </div>
+    </div>
+  </section>
+  
+
+  <section id="contact" style="padding: 60px 20px; background-color: #121212; color: white;">
     <div style="max-width: 800px; margin: 0 auto;">
-      <h2 style="color: #00ff99; text-align: center;">About Me</h2>
-      <p style="line-height: 1.6; font-size: 1.1em; margin-top: 20px;">
-        I am Rishikesh, a Computer Science Engineering student at Kerala Technological University (KTU), with a strong focus on cybersecurity, ethical hacking, and software development. My core interests lie in penetration testing, full-stack development, and building secure, practical applications that address real-world challenges.
+      <h2 style="color: #00ff99; text-align: center;">Contact Me</h2>
+      <p style="text-align: center; font-size: 1.1em; margin-bottom: 40px;">
+        Let's connect! Fill out the form below to get in touch with me.
       </p>
-      <p style="line-height: 1.6; font-size: 1.1em;">
-        I have completed certified training in penetration testing at RedTeam Hackers Academy and have gained hands-on experience through internships in both ethical hacking and robotics. My experience spans from exploring system vulnerabilities to developing custom tools and solutions that emphasize performance and security.
-      </p>
-      <p style="line-height: 1.6; font-size: 1.1em;">
-        Some of the projects I’ve worked on include:
-      </p>
-      <ul style="line-height: 1.6; font-size: 1.1em; padding-left: 20px;">
-        <li>A custom-built encryption and decryption tool based on a unique cipher logic</li>
-      </ul>
-      <p style="line-height: 1.6; font-size: 1.1em;">
-        I am driven by a deep curiosity about how systems operate and how they can be secured and optimized. I strongly believe in continuous learning, practical implementation, and building a digital presence that reflects both technical skill and creative thinking.
-      </p>
-      <p style="line-height: 1.6; font-size: 1.1em;">
-        If you are interested in collaborating, discussing ideas, or learning more about my work, please feel free to connect.
-      </p>
-      <center>
-        <form id="contact" action="mailto:keshu.4f@gmail.com">
-          <h2 style="color: #00ff99; text-align: center;">Contact</h2>
-          <label for="name">Name:</label>
-          <input id="name" type="text" name="name" required><p></p>
-          <label for="mail">Email:</label>
-          <input id="mail" type="email" name="email" required><p></p>
-          <label for="msg">Message:
-            <textarea name="msg-box" id="msg" rows="4" cols="40" required></textarea>
-          </label><p></p>
-          <button class="active-btn"><input style="background-color: transparent; border: none; box-shadow: none; color: white;" type="submit"></button>
-        </form>
-      </center>
-      <div style="margin-top: 30px; display: flex; justify-content: center; gap: 40px; font-size: 1.8em;">
+      <form id="contactForm" style="display: flex; flex-direction: column; gap: 20px;">
+        <input type="text" id="name" name="user_name" placeholder="Your Name" required class="contact-input" />
+        <input type="email" id="email" name="user_email" placeholder="Your Email" required class="contact-input" />
+        <textarea id="message" name="message" rows="5" placeholder="Your Message" required class="contact-textarea"></textarea>
+        <button type="submit" class="active-btn">Send Message</button>
+      </form>
+      <div id="formStatus" style="margin-top: 20px; text-align: center; font-size: 1em;"></div>
+  
+      <div style="margin-top: 40px; display: flex; justify-content: center; gap: 40px; font-size: 1.8em;">
         <a href="mailto:keshu.4f@gmail.com" style="color: #00ff99;" title="Email">
           <i class="fas fa-envelope"></i>
         </a>
@@ -230,6 +274,7 @@
       </div>
     </div>
   </section>
+  
 </body>
 <script>
 function TravelOver(par) {
@@ -246,5 +291,28 @@ function TravelOver(par) {
     window.location.href = './resume.pdf'
   }
 }
+(function () {
+  emailjs.init("_cHPNSPpqYFBO5ksr"); // Replace with your EmailJS public key
+})();
+
+document.getElementById("contactForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  
+  const status = document.getElementById("formStatus");
+  status.innerText = "Sending your message...";
+  status.style.color = "#00ff99";
+
+  emailjs.sendForm('service_w19ipxm', 'template_1kvvcqh', this)
+    .then(function () {
+      status.innerText = "Thank you! I’ll get back to you soon.";
+      status.style.color = "#00ff99";
+      document.getElementById("contactForm").reset();
+    }, function (error) {
+      console.log('FAILED...', error);
+      status.innerText = "Oops! Something went wrong.";
+      status.style.color = "#ff4d4d";
+    });
+});
+
 </script>
 </html>
