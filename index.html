@@ -23,12 +23,25 @@
       text-decoration: none;
       color: white;
     }
+
+    @media (max-width: 666px)
+    {
+      img {
+        width: 300px;
+      }
+    }
+
     .intro {
       text-align: center;
       padding: 40px 20px;
     }
     .intro h1 {
       font-size: 2.5em;
+    }
+    @media (max-width: 666px;) {
+      .intro h1 {
+        font-size: 1rem;
+      }
     }
     .highlight {
       color: #00ff99;
@@ -46,6 +59,13 @@
       margin-top: 40px;
       width: 100%;
       max-width: 1000px;
+    }
+    @media (max-width: 666px) {
+      .projects, .tools {
+        display: flex;
+        flex-direction: row;
+        margin-top: 40px;
+      }
     }
     .card {
       background-color: #121212;
@@ -157,7 +177,6 @@
   color: #00ff99;
   margin-right: 8px;
 }
-
   </style>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
