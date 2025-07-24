@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr. Robot Style Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the terminal feel */
+        body {
+            font-family: 'Inter', monospace;
+            background-color: #0d1117; /* Very dark blue-gray, like a deep terminal */
+            color: #ffffff; /* White text for terminal feel */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Prevent body scroll */
+            position: relative; /* For pseudo-elements */
+        }
+
+        /* CRT/Scanline effect */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none; /* Allow clicks to pass through */
+            z-index: 100; /* On top of everything */
+        }
+
+        .full-screen-terminal {
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.95); /* Slightly transparent black */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 2rem; /* Overall padding for the terminal content */
+            box-sizing: border-box; /* Include padding in width/height */
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.7); /* White glow for text */
+            box-shadow: inset 0 0 50px rgba(255, 255, 255, 0.2); /* Inner glow effect */
+        }
+
+        .terminal-body {
+            flex-grow: 1;
+            overflow-y: auto; /* Scrollable output area */
+            font-size: 1rem; /* Slightly larger text for full screen */
+            line-height: 1.6;
+            white-space: pre-wrap; /* Preserve whitespace and wrap text */
+            padding-right: 1rem; /* Space for scrollbar */
+        }
+
+        .terminal-line {
+            margin-bottom: 0.25rem;
+        }
+
+        .terminal-input-container {
+            display: flex;
+            align-items: center;
+            padding-top: 1rem; /* Space above input */
+            border-top: 1px solid #333; /* Subtle separator */
+            margin-top: 1rem; /* Space between output and input */
+        }
+
+        .terminal-prompt {
+            color: #ffffff; /* White prompt */
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+            text-shadow: 0 0 5px #ffffff; /* Glow for prompt */
+        }
+
+        .terminal-input {
+            background: none;
+            border: none;
+            outline: none;
+            color: #ffffff; /* White input text */
+            flex-grow: 1;
+            font-family: 'Inter', monospace;
+            font-size: 1rem;
+            caret-color: #ffffff; /* White blinking cursor */
+            text-shadow: 0 0 5px #ffffff; /* Glow for input text */
+        }
+
+        /* Typing effect cursor */
+        .typing-cursor {
+            display: inline-block;
+            background-color: #ffffff;
+            width: 0.6rem; /* Slightly wider cursor */
+            height: 1.2rem; /* Taller cursor */
+            margin-left: 0.25rem;
+            animation: blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes blink-caret {
+            from, to { background-color: transparent; }
+            50% { background-color: #ffffff; }
+        }
+
+        /* Scrollbar styling for a cleaner look */
+        .terminal-body::-webkit-scrollbar {
+            width: 8px;
+        }
+        .terminal-body::-webkit-scrollbar-track {
+            background: #0d1117; /* Match body background */
+            border-radius: 10px;
+        }
+        .terminal-body::-webkit-scrollbar-thumb {
+            background: #ffffff; /* White scrollbar thumb */
+            border-radius: 10px;
+        }
+        .terminal-body::-webkit-scrollbar-thumb:hover {
+            background: #cccccc; /* Lighter white on hover */
+        }
+
+        /* Custom colors for commands/links */
+        .color-cyan { color: #87CEEB; } /* SkyBlue for links/commands */
+        .color-red { color: #ff5f56; }
+        .color-yellow { color: #ffbd2e; }
+        .color-green { color: #27c93f; }
+    </style>
+</head>
+<body>
+    <div class="full-screen-terminal">
+        <div id="terminal-output" class="terminal-body">
+            <!-- Initial messages will be typed here -->
+        </div>
+        <div class="terminal-input-container">
+            <span class="terminal-prompt">mocky@portfolio:~$&nbsp;</span>
+            <input type="text" id="terminal-input" class="terminal-input" autofocus autocomplete="off">
+        </div>
+    </div>
+
+    <script>
+        const terminalOutput = document.getElementById('terminal-output');
+        const terminalInput = document.getElementById('terminal-input');
+
+        const commands = {
+            'help': `
+                Available commands:
+                <span class="color-cyan">help</span>     - Show this help message
+                <span class="color-cyan">about</span>    - Learn about me
+                <span class="color-cyan">skills</span>   - My technical abilities
+                <span class="color-cyan">projects</span> - Explore my work
+                <span class="color-cyan">contact</span>  - How to reach me
+                <span class="color-cyan">clear</span>    - Clear the terminal
+                <span class="color-cyan">banner</span>   - Display the portfolio banner
+            `,
+            'about': `
+                Hello, I'm Rishikesh M! I'm a passionate Computer Science Engineering student at KTU, focusing on Cybersecurity, Penetration Testing, and Robotics.
+                I enjoy building secure and smart solutions to solve real-world problems, such as identifying system vulnerabilities, designing gadgets, and creating tools that improve digital safety.
+                My tech journey began with a passion for ethical hacking in school, leading me to pursue penetration testing and explore cybersecurity through hands-on projects and CTFs. I've trained at RedTeam Hackers Academy and gained hands-on experience through internships in ethical hacking and robotics.
+            `,
+            'skills': `
+                My core skills include:
+                - Programming Languages: Python, JavaScript, Java, C++
+                - Web Technologies: HTML, CSS, React
+                - Databases: MySQL
+                - Cloud Platforms: AWS, Google Cloud
+                - Tools & Others: Git, Docker, Linux
+            `,
+            'projects': `
+                Here are some of my notable projects:
+                1. <span class="color-cyan">Synapse - TCP Port Scanner</span>: A network tool for scanning and identifying open TCP ports to assess potential vulnerabilities in target systems. (Link: <a href="https://github.com/Rishikesh-m/synapse" target="_blank" class="color-cyan text-underline">https://github.com/Rishikesh-m/synapse</a>)
+                2. <span class="color-cyan">Capture The Flag</span>: A series of challenges for [brief description]. (Link: <a href="https://tryhackme.com/p/keshr" target="_blank" class="color-cyan text-underline">https://tryhackme.com/p/keshr</a>)
+                3. <span class="color-cyan">3D Models</span>: Various 3D models created using [technologies]. (Link: <a href="#" target="_blank" class="color-cyan text-underline">https://upcoming/</a>)
+                Type 'projects [number]' for more details, e.g., 'projects 1'.
+            `,
+            'contact': `
+                You can reach me via:
+                - Email: <span class="color-cyan">keshu.4f@gmail.com</span>
+                - LinkedIn: <a href="https://linkedin.com/in/-rishikesh-m" target="_blank" class="color-cyan text-underline">linkedin.com/in/-rishikesh-m</a>
+                - GitHub: <a href="https://github.com/Rishikesh-m" target="_blank" class="color-cyan text-underline">https://github.com/Rishikesh-m</a>
+            `,
+            'clear': '', // Handled by function
+            'whoami': 'You are a curious visitor exploring my portfolio.',
+            'ls': 'about  skills  projects  contact  help  clear  banner',
+            'cd': 'Permission denied. This is a static portfolio.',
+            'sudo': 'Access Denied. You are not root.',
+            'ping': 'Pong!',
+            'echo': (args) => args.join(' '),
+            'cat': (args) => {
+                const fileName = args[0];
+                if (fileName === 'README.md') {
+                    return `
+                        # Welcome to My Portfolio Terminal!
+                        This interactive terminal allows you to explore my work and learn about me.
+                        Type '<span class="color-cyan">help</span>' to see available commands.
+                        Enjoy your stay!
+                    `;
+                }
+                return `cat: ${fileName}: No such file or directory`;
+            },
+            'banner': `
+                RISHIKESH-M's Portfolio Terminal
+                Version 1.0.0
+                ---------------------------------------------------
+                Type '<span class="color-cyan">help</span>' to get started.
+            `
+        };
+
+        // Project details (example)
+        const projectDetails = {
+            '1': `
+                <span class="color-cyan">Synapse - TCP Port Scanner Details:</span>
+                This project is a TCP Port Scanner designed to detect open ports on target systems for vulnerability assessment. 
+                It utilizes Python and Scapy for crafting and sending packets. 
+                Key features include fast scanning, customizable port ranges, and real-time result display.
+                (Link: <a href="https://github.com/Rishikesh-m/synapse" target="_blank" class="color-cyan text-underline">https://github.com/Rishikesh-m/synapse</a>)
+            `,
+            '2': `
+                <span class="color-cyan">Capture The Flag Details:</span>
+                This project consists of various Capture The Flag challenges, focusing on areas like web exploitation, forensics, and reverse engineering. 
+                It helped me gain hands-on experience in vulnerability analysis, problem-solving under pressure, and real-world attack simulation.
+                (Link: <a href="https://tryhackme.com/p/keshr" target="_blank" class="color-cyan text-underline">https://tryhackme.com/p/keshr</a>)
+            `,
+            '3': `
+                <span class="color-cyan">3D Models Details:</span>
+                This project showcases various 3D models and assets I've created using Blender. 
+                It demonstrates my skills in 3D modeling, asset creation, rendering, and design visualization.
+                (Link: <a href="#" target="_blank" class="color-cyan text-underline">https://upcoming.com/</a>)
+            `
+        };
+
+
+        let lineIndex = 0;
+        const initialMessages = [
+            'Initializing secure connection...',
+            'Establishing encrypted channel...',
+            'Connection established. Welcome to Rishikesh M\'s Portfolio.',
+            'Running system diagnostics... OK.',
+            'Loading modules...',
+            'Module: portfolio_core.sh loaded.',
+            'Module: command_parser.js loaded.',
+            'Module: data_retriever.py loaded.',
+            'All modules loaded successfully.',
+            '', // Blank line for spacing
+            commands['banner'], // Display banner after boot sequence
+            '', // Blank line for spacing
+            'Type <span class="color-cyan">help</span> to see available commands.'
+        ];
+
+        // Function to simulate typing effect
+        function typeMessage(message, callback) {
+            const line = document.createElement('div');
+            line.classList.add('terminal-line');
+            terminalOutput.appendChild(line);
+
+            let charIndex = 0;
+            const typingInterval = setInterval(() => {
+                if (charIndex < message.length) {
+                    // Check for HTML tags to skip typing char by char
+                    if (message.substring(charIndex, charIndex + 1) === '<') {
+                        const endIndex = message.indexOf('>', charIndex);
+                        if (endIndex !== -1) {
+                            line.innerHTML += message.substring(charIndex, endIndex + 1);
+                            charIndex = endIndex + 1;
+                        } else {
+                            line.innerHTML += message.charAt(charIndex);
+                            charIndex++;
+                        }
+                    } else {
+                        line.innerHTML += message.charAt(charIndex);
+                        charIndex++;
+                    }
+                    terminalOutput.scrollTop = terminalOutput.scrollHeight; // Auto-scroll
+                } else {
+                    clearInterval(typingInterval);
+                    if (callback) callback();
+                }
+            }, 20); // Typing speed
+        }
+
+        // Function to display messages sequentially with typing effect
+        function displayInitialMessages() {
+            if (lineIndex < initialMessages.length) {
+                typeMessage(initialMessages[lineIndex], () => {
+                    lineIndex++;
+                    displayInitialMessages();
+                });
+            } else {
+                terminalInput.focus(); // Focus input after messages
+            }
+        }
+
+        // Function to add a command output line
+        function addOutputLine(text, isCommand = false) {
+            const line = document.createElement('div');
+            line.classList.add('terminal-line');
+            if (isCommand) {
+                line.innerHTML = `<span class="terminal-prompt">mocky@portfolio:~$&nbsp;</span><span style="color: #ffffff;">${text}</span>`;
+            } else {
+                line.innerHTML = text;
+            }
+            terminalOutput.appendChild(line);
+            terminalOutput.scrollTop = terminalOutput.scrollHeight; // Auto-scroll
+        }
+
+        // Handle command input
+        terminalInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent default Enter behavior (e.e., new line)
+                const command = terminalInput.value.trim();
+                addOutputLine(command, true); // Display the typed command
+
+                const [cmd, ...args] = command.split(' ');
+
+                if (cmd === 'clear') {
+                    terminalOutput.innerHTML = ''; // Clear output
+                } else if (cmd === 'projects' && args.length > 0) {
+                    const projectNum = args[0];
+                    if (projectDetails[projectNum]) {
+                        typeMessage(projectDetails[projectNum]);
+                    } else {
+                        typeMessage(`No project found with number: ${projectNum}`);
+                    }
+                } else if (commands[cmd]) {
+                    const output = typeof commands[cmd] === 'function' ? commands[cmd](args) : commands[cmd];
+                    typeMessage(output);
+                } else {
+                    typeMessage(`Command not found: ${cmd}. Type 'help' for a list of commands.`);
+                }
+                terminalInput.value = ''; // Clear input field
+                terminalInput.focus(); // Keep input focused
+            }
+        });
+
+        // Ensure input is always focused
+        document.addEventListener('click', () => {
+            terminalInput.focus();
+        });
+
+        // Start displaying initial messages when the page loads
+        window.onload = displayInitialMessages;
+    </script>
+</body>
+</html>
